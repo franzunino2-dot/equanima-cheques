@@ -3,28 +3,28 @@
 
 import { uuid, hoyISO, sumarDias, isoDe } from '../dominio/formato.js';
 
-const CLAVE = 'eq_cheques_demo_v2';
+const CLAVE = 'eq_cheques_demo_v3';
 const CLAVE_USUARIO = 'eq_cheques_demo_usuario';
 
 const USUARIOS = [
-  { id: 'u-fran',   nombre: 'Francisco Zunino', email: 'fzunino@equanimasecurities.com',  rol: 'admin' },
-  { id: 'u-delfi',  nombre: 'Delfina Ruiz',     email: 'druiz@equanimasecurities.com',    rol: 'backoffice' },
-  { id: 'u-chelo',  nombre: 'Marcelo Paz',      email: 'mpaz@equanimasecurities.com',     rol: 'backoffice' },
-  { id: 'u-regi',   nombre: 'Regina Bonelli',   email: 'rbonelli@equanimasecurities.com', rol: 'compliance' },
-  { id: 'u-emi',    nombre: 'Emiliano Sosa',    email: 'esosa@equanimasecurities.com',    rol: 'productor' },
-  { id: 'u-uru',    nombre: 'Rodrigo Uriarte',  email: 'ruriarte@equanimasecurities.com', rol: 'productor' },
-  { id: 'u-agos',   nombre: 'Agostina Lynch',   email: 'alynch@equanimasecurities.com',   rol: 'lectura' }
+  { id: 'u-fran',   nombre: 'Fran (demo)', email: 'fran@ejemplo.test',  rol: 'admin' },
+  { id: 'u-delfi',  nombre: 'Delfi (demo)',     email: 'delfi@ejemplo.test',    rol: 'backoffice' },
+  { id: 'u-chelo',  nombre: 'Chelo (demo)',      email: 'chelo@ejemplo.test',     rol: 'backoffice' },
+  { id: 'u-regi',   nombre: 'Regi (demo)',   email: 'regi@ejemplo.test', rol: 'compliance' },
+  { id: 'u-emi',    nombre: 'Emi (demo)',    email: 'emi@ejemplo.test',    rol: 'productor' },
+  { id: 'u-uru',    nombre: 'Uru (demo)',  email: 'uru@ejemplo.test', rol: 'productor' },
+  { id: 'u-agos',   nombre: 'Agos (demo)',   email: 'agos@ejemplo.test',   rol: 'lectura' }
 ];
 
 const COMITENTES = [
-  { id: 'c-1237', numero: '1237', denominacion: 'ZUNINO DIAZ, GUIDO',          cuit: '20304567899', productor_id: 'u-fran',  activo: true },
-  { id: 'c-1238', numero: '1238', denominacion: 'ZUNINO, GABRIEL JULIAN',      cuit: '20123456786', productor_id: 'u-fran',  activo: true },
-  { id: 'c-1323', numero: '1323', denominacion: 'AGROPECUARIA EL MOLINO SRL',  cuit: '30712345671', productor_id: 'u-emi',   activo: true },
-  { id: 'c-1329', numero: '1329', denominacion: 'MARTINEZ, LAURA BEATRIZ',     cuit: '27285461230', productor_id: 'u-emi',   activo: true },
-  { id: 'c-1363', numero: '1363', denominacion: 'DISTRIBUIDORA DEL SUR SA',    cuit: '30658974129', productor_id: 'u-uru',   activo: true },
-  { id: 'c-1416', numero: '1416', denominacion: 'PEREYRA, JUAN CARLOS',        cuit: '20174563218', productor_id: 'u-uru',   activo: true },
-  { id: 'c-1483', numero: '1483', denominacion: 'TRANSPORTES ANDINOS SRL',     cuit: '30711223343', productor_id: 'u-emi',   activo: true },
-  { id: 'c-1502', numero: '1502', denominacion: 'GOMEZ, MARIA FERNANDA',       cuit: '27321456788', productor_id: 'u-fran',  activo: false }
+  { id: 'c-1237', numero: '2001', denominacion: 'ALVAREZ, MARTIN GUSTAVO',          cuit: '20304567899', productor_id: 'u-fran',  activo: true },
+  { id: 'c-1238', numero: '2002', denominacion: 'FERRARO, NICOLAS ANDRES',      cuit: '20123456786', productor_id: 'u-fran',  activo: true },
+  { id: 'c-1323', numero: '2003', denominacion: 'AGROPECUARIA EL MOLINO SRL',  cuit: '30712345671', productor_id: 'u-emi',   activo: true },
+  { id: 'c-1329', numero: '2004', denominacion: 'MARTINEZ, LAURA BEATRIZ',     cuit: '27285461230', productor_id: 'u-emi',   activo: true },
+  { id: 'c-1363', numero: '2005', denominacion: 'DISTRIBUIDORA DEL SUR SA',    cuit: '30658974129', productor_id: 'u-uru',   activo: true },
+  { id: 'c-1416', numero: '2006', denominacion: 'PEREYRA, JUAN CARLOS',        cuit: '20174563218', productor_id: 'u-uru',   activo: true },
+  { id: 'c-1483', numero: '2007', denominacion: 'TRANSPORTES ANDINOS SRL',     cuit: '30711223343', productor_id: 'u-emi',   activo: true },
+  { id: 'c-1502', numero: '2008', denominacion: 'ROMANO, SILVIA NOEMI',       cuit: '27321456788', productor_id: 'u-fran',  activo: false }
 ];
 
 function semilla() {
@@ -34,21 +34,21 @@ function semilla() {
     { circuito: 'ingreso', soporte: 'echeq',  estado: 'solicitado',    comitente: 'c-1323', monto: 4850000,  fp: d(12), banco: '007', lib: ['AGROPECUARIA EL MOLINO SRL', '30712345671'], prod: 'u-emi' },
     { circuito: 'ingreso', soporte: 'echeq',  estado: 'en_revision',   comitente: 'c-1363', monto: 12400000, fp: d(5),  banco: '285', lib: ['DISTRIBUIDORA DEL SUR SA', '30658974129'], prod: 'u-uru' },
     { circuito: 'ingreso', soporte: 'fisico', estado: 'esperando_compliance', comitente: 'c-1329', monto: 2300000, fp: d(20), banco: '072', lib: ['SUAREZ, RICARDO ALBERTO', '20145678901'], prod: 'u-emi' },
-    { circuito: 'ingreso', soporte: 'echeq',  estado: 'aprobado_ingreso', comitente: 'c-1237', monto: 1750000, fp: d(1),  banco: '017', lib: ['ZUNINO DIAZ, GUIDO', '20304567899'], prod: 'u-fran' },
+    { circuito: 'ingreso', soporte: 'echeq',  estado: 'aprobado_ingreso', comitente: 'c-1237', monto: 1750000, fp: d(1),  banco: '017', lib: ['ALVAREZ, MARTIN GUSTAVO', '20304567899'], prod: 'u-fran' },
     { circuito: 'ingreso', soporte: 'echeq',  estado: 'recibido',      comitente: 'c-1483', monto: 8900000,  fp: d(0),  banco: '191', lib: ['TRANSPORTES ANDINOS SRL', '30711223343'], prod: 'u-emi' },
     { circuito: 'ingreso', soporte: 'fisico', estado: 'recibido',      comitente: 'c-1416', monto: 640000,   fp: d(-2), banco: '029', lib: ['PEREYRA, JUAN CARLOS', '20174563218'], prod: 'u-uru' },
     { circuito: 'ingreso', soporte: 'echeq',  estado: 'depositado',    comitente: 'c-1363', monto: 15600000, fp: d(-1), banco: '007', lib: ['DISTRIBUIDORA DEL SUR SA', '30658974129'], prod: 'u-uru' },
     { circuito: 'ingreso', soporte: 'echeq',  estado: 'depositado',    comitente: 'c-1323', monto: 3200000,  fp: d(-3), banco: '322', lib: ['AGROPECUARIA EL MOLINO SRL', '30712345671'], prod: 'u-emi' },
-    { circuito: 'ingreso', soporte: 'echeq',  estado: 'acreditado',    comitente: 'c-1238', monto: 5400000,  fp: d(-8), banco: '011', lib: ['ZUNINO, GABRIEL JULIAN', '20123456786'], prod: 'u-fran' },
+    { circuito: 'ingreso', soporte: 'echeq',  estado: 'acreditado',    comitente: 'c-1238', monto: 5400000,  fp: d(-8), banco: '011', lib: ['FERRARO, NICOLAS ANDRES', '20123456786'], prod: 'u-fran' },
     { circuito: 'ingreso', soporte: 'echeq',  estado: 'acreditado',    comitente: 'c-1483', monto: 2100000,  fp: d(-14), banco: '285', lib: ['TRANSPORTES ANDINOS SRL', '30711223343'], prod: 'u-emi' },
     { circuito: 'ingreso', soporte: 'fisico', estado: 'rechazado_banco', comitente: 'c-1416', monto: 980000, fp: d(-6), banco: '299', lib: ['PEREYRA, JUAN CARLOS', '20174563218'], prod: 'u-uru', motivo: 'Sin fondos suficientes' },
     { circuito: 'ingreso', soporte: 'echeq',  estado: 'observado',     comitente: 'c-1329', monto: 760000,   fp: d(18), banco: '034', lib: ['MARTINEZ, LAURA BEATRIZ', '27285461230'], prod: 'u-emi', obs: 'Falta el comprobante del ECHEQ. Mandá el PDF del banco.' },
 
-    { circuito: 'egreso', soporte: 'echeq', estado: 'solicitado',      comitente: 'c-1237', monto: 3000000,  fp: d(3),  ben: ['ZUNINO DIAZ, GUIDO', '20304567899'], prod: 'u-fran' },
+    { circuito: 'egreso', soporte: 'echeq', estado: 'solicitado',      comitente: 'c-1237', monto: 3000000,  fp: d(3),  ben: ['ALVAREZ, MARTIN GUSTAVO', '20304567899'], prod: 'u-fran' },
     { circuito: 'egreso', soporte: 'echeq', estado: 'aprobado_egreso', comitente: 'c-1363', monto: 9500000,  fp: d(7),  ben: ['DISTRIBUIDORA DEL SUR SA', '30658974129'], prod: 'u-uru' },
     { circuito: 'egreso', soporte: 'echeq', estado: 'emitido',         comitente: 'c-1483', monto: 4200000,  fp: d(10), ben: ['TRANSPORTES ANDINOS SRL', '30711223343'], prod: 'u-emi' },
     { circuito: 'egreso', soporte: 'echeq', estado: 'entregado',       comitente: 'c-1323', monto: 6800000,  fp: d(2),  ben: ['AGROPECUARIA EL MOLINO SRL', '30712345671'], prod: 'u-emi' },
-    { circuito: 'egreso', soporte: 'echeq', estado: 'debitado',        comitente: 'c-1238', monto: 1200000,  fp: d(-5), ben: ['ZUNINO, GABRIEL JULIAN', '20123456786'], prod: 'u-fran' },
+    { circuito: 'egreso', soporte: 'echeq', estado: 'debitado',        comitente: 'c-1238', monto: 1200000,  fp: d(-5), ben: ['FERRARO, NICOLAS ANDRES', '20123456786'], prod: 'u-fran' },
     { circuito: 'egreso', soporte: 'fisico', estado: 'esperando_compliance', comitente: 'c-1416', monto: 11500000, fp: d(4), ben: ['LOPEZ, MIRTA SUSANA', '27184569030'], prod: 'u-uru' },
 
     { circuito: 'endoso', soporte: 'echeq', estado: 'aprobado_endoso', comitente: 'c-1363', monto: 7300000, fp: d(15), banco: '150', lib: ['COOPERATIVA AGRICOLA LTDA', '30546789124'], prod: 'u-uru' },
