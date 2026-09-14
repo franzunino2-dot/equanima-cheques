@@ -1,6 +1,10 @@
 // Catálogo de entidades financieras (código BCRA de 3 dígitos, que es el
 // prefijo del CBU). Sirve para el selector de banco girado y para deducir el
 // banco a partir de un CBU pegado.
+//
+// Verificado el 2026-09-14 contra la Comunicación A7896 del BCRA (listado de
+// entidades financieras, grupos A/B/C). Si aparece un cheque de un banco que no
+// está acá, agregalo: el código es el prefijo de 3 dígitos del CBU.
 
 export const BANCOS = [
   { cod: '007', nombre: 'Banco de Galicia y Buenos Aires' },
@@ -12,11 +16,10 @@ export const BANCOS = [
   { cod: '020', nombre: 'Banco de la Provincia de Córdoba' },
   { cod: '027', nombre: 'Banco Supervielle' },
   { cod: '029', nombre: 'Banco de la Ciudad de Buenos Aires' },
-  { cod: '030', nombre: 'Banco Central de la República Argentina' },
+  { cod: '030', nombre: 'Naranja Digital Compañía Financiera' },
   { cod: '034', nombre: 'Banco Patagonia' },
   { cod: '044', nombre: 'Banco Hipotecario' },
   { cod: '045', nombre: 'Banco de San Juan' },
-  { cod: '060', nombre: 'Banco del Tucumán' },
   { cod: '065', nombre: 'Banco Municipal de Rosario' },
   { cod: '072', nombre: 'Banco Santander Argentina' },
   { cod: '083', nombre: 'Banco del Chubut' },
@@ -25,7 +28,7 @@ export const BANCOS = [
   { cod: '094', nombre: 'Banco de Corrientes' },
   { cod: '097', nombre: 'Banco Provincia del Neuquén' },
   { cod: '143', nombre: 'Brubank' },
-  { cod: '147', nombre: 'Banco Interfinanzas' },
+  { cod: '147', nombre: 'BI Bank' },
   { cod: '150', nombre: 'HSBC Bank Argentina' },
   { cod: '158', nombre: 'Openbank Argentina' },
   { cod: '165', nombre: 'JPMorgan Chase Bank' },
@@ -34,7 +37,6 @@ export const BANCOS = [
   { cod: '247', nombre: 'Banco Roela' },
   { cod: '254', nombre: 'Banco Mariva' },
   { cod: '259', nombre: 'Banco Itaú Argentina' },
-  { cod: '262', nombre: 'Bank of America' },
   { cod: '266', nombre: 'BNP Paribas' },
   { cod: '268', nombre: 'Banco Provincia de Tierra del Fuego' },
   { cod: '269', nombre: 'Banco de la República Oriental del Uruguay' },
@@ -56,7 +58,6 @@ export const BANCOS = [
   { cod: '330', nombre: 'Nuevo Banco de Santa Fe' },
   { cod: '331', nombre: 'Banco Cetelem Argentina' },
   { cod: '332', nombre: 'Banco de Servicios Financieros' },
-  { cod: '336', nombre: 'Banco Bradesco Argentina' },
   { cod: '338', nombre: 'Banco de Servicios y Transacciones' },
   { cod: '339', nombre: 'RCI Banque' },
   { cod: '340', nombre: 'BACS Banco de Crédito y Securitización' },
@@ -67,9 +68,9 @@ export const BANCOS = [
   { cod: '426', nombre: 'Banco Bica' },
   { cod: '431', nombre: 'Banco Coinag' },
   { cod: '432', nombre: 'Banco de Comercio' },
-  { cod: '435', nombre: 'Banco Supervielle (ex Cordial)' },
-  { cod: '448', nombre: 'Banco Dino' },
-  { cod: '515', nombre: 'Banco Mercedes Cambio' }
+  { cod: '435', nombre: 'Banco Sucrédito Regional' },
+  { cod: '440', nombre: 'Mercedes-Benz Compañía Financiera Argentina' },
+  { cod: '448', nombre: 'Banco Dino' }
 ];
 
 const PORCOD = {};
