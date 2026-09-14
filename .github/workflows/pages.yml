@@ -1,0 +1,57 @@
+name: Deploy a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # config.js se commitea vacío (así el clon arranca en modo demo).
+      # Acá se regenera con las claves reales desde los secrets del repo.
+      # Si los secrets no están cargados, el sitio queda en modo demo y no rompe.
+      - name: Inyectar configuración
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SYNC_ENDPOINT: ${{ secrets.SYNC_ENDPOINT }}
+        run: |
+          if [ -n "$SUPABASE_URL" ]; then
+            node -e '
+              const fs = require("fs");
+              let c = fs.readFileSync("config.js", "utf8");
+              const set = (k, v) => {
+                c = c.replace(new RegExp(k + ": *\x27[^\x27]*\x27"), k + ": \x27" + v + "\x27");
+              };
+              set("SUPABASE_URL", process.env.SUPABASE_URL);
+              set("SUPABASE_ANON_KEY", process.env.SUPABASE_ANON_KEY);
+              if (process.env.SYNC_ENDPOINT) set("SYNC_ENDPOINT", process.env.SYNC_ENDPOINT);
+              fs.writeFileSync("config.js", c);
+              console.log("config.js listo para " + process.env.SUPABASE_URL);
+            '
+          else
+            echo "Sin secrets: el sitio queda en modo demo."
+          fi
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4

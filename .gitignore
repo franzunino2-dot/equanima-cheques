@@ -1,0 +1,4 @@
+node_modules/
+sync/.env
+.DS_Store
+*.log
