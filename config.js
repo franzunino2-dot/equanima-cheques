@@ -1,11 +1,15 @@
-// Configuración de la app. Este archivo se commitea SIN claves:
-// el workflow de Pages lo regenera en el deploy desde los secrets del repo.
+// Configuración de la app.
+//
+// La clave de abajo es la PUBLICABLE: está pensada para vivir en el browser y
+// es segura de commitear. Lo que protege los datos son las políticas RLS de
+// supabase/schema.sql, no esta clave. La sb_secret_… NUNCA va acá.
+//
 // Con SUPABASE_URL vacío, la app corre en modo demo sobre localStorage.
 
 window.CFG = {
   // --- Supabase ---
-  SUPABASE_URL: '',
-  SUPABASE_ANON_KEY: '',
+  SUPABASE_URL: 'https://buhpcbgocmwankamnucp.supabase.co',
+  SUPABASE_ANON_KEY: 'sb_publishable_Je3kEnn-TzmVT0GuYP7ZJQ_7vZc0UDG',
 
   // --- Acceso ---
   // 'dominio'  -> login con Google restringido a ALLOWED_EMAIL_DOMAIN (producción)
