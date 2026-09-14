@@ -75,14 +75,19 @@ localStorage.eq_cheques_force_demo = '1'
 
 1. **Supabase** — proyecto nuevo en la org Equanima. Correr `supabase/schema.sql`
    entero en el SQL editor.
-2. **Google** — en Authentication → Providers activar Google; en Google Cloud,
-   OAuth con el callback de Supabase.
-3. **Promoverte a admin** — entrar una vez y después:
+2. **Acceso** — el magic link funciona sin configurar nada (Email ya viene
+   habilitado). Para Google: Authentication → Providers → Google, con un OAuth
+   Client creado en Google Cloud y el callback `https://<ref>.supabase.co/auth/v1/callback`.
+   En Authentication → URL Configuration cargar el Site URL y la redirect URL del sitio.
+3. **Entrar y promoverte a admin** — se entra por magic link (llega un mail con
+   un botón) o con Google. La primera vez el perfil queda en `lectura`; después:
    ```sql
    update public.perfiles set rol = 'admin' where email = 'TU_MAIL@equanimasecurities.com';
    ```
-4. **Secrets del repo** — `SUPABASE_URL` y `SUPABASE_ANON_KEY` (la publicable
-   `sb_publishable_…`, nunca la `sb_secret_…`). Pages Source = GitHub Actions.
+4. **Claves** — van en `config.js`: la URL del proyecto y la clave **publicable**
+   (`sb_publishable_…`), que es segura de commitear. La `sb_secret_…` no va nunca
+   al front. Alternativamente se pueden cargar como secrets del repo
+   (`SUPABASE_URL` / `SUPABASE_ANON_KEY`) y el workflow regenera `config.js`.
 5. **Comitentes** — `node sync/sync-comitentes.js` desde la oficina
    (ver [docs/SINCRO_GALLO.md](docs/SINCRO_GALLO.md)).
 6. **Banco** — ver [docs/INTEGRACION_BIND.md](docs/INTEGRACION_BIND.md). Hasta
