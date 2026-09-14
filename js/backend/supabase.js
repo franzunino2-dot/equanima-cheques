@@ -70,6 +70,26 @@ export const backend = {
     if (error) throw error;
   },
 
+  // Magic link: llega un mail con un botón para entrar, sin contraseña.
+  // El filtro por dominio se chequea acá para dar un mensaje claro, pero el
+  // candado real es dominio_permitido() en las políticas RLS.
+  async entrarPorMail(email) {
+    const dom = window.CFG.ALLOWED_EMAIL_DOMAIN;
+    const limpio = String(email || '').trim().toLowerCase();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(limpio)) {
+      throw new Error('Ese mail no parece válido.');
+    }
+    if (dom && limpio.split('@')[1] !== dom) {
+      throw new Error('Tiene que ser un mail @' + dom + '.');
+    }
+    const { error } = await cliente().auth.signInWithOtp({
+      email: limpio,
+      options: { emailRedirectTo: location.origin + location.pathname }
+    });
+    if (error) throw error;
+    return limpio;
+  },
+
   async salir() {
     if (canal) { cliente().removeChannel(canal); canal = null; }
     await cliente().auth.signOut();

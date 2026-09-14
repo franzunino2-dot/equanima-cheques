@@ -487,3 +487,16 @@ input:focus, select:focus, textarea:focus { outline: 2px solid var(--verde); out
   .kpis { grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); }
   .kpi-n { font-size: 21px; }
 }
+
+/* ---------- login por mail ---------- */
+
+.login-mail { display: flex; flex-direction: column; gap: 10px; }
+.login-mail .campo > span { font-size: 12px; }
+.login-mail input { padding: 10px 12px; font-size: 15px; }
+.separador {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--tenue); font-size: 12px; margin: 4px 0;
+}
+.separador::before, .separador::after {
+  content: ''; flex: 1; height: 1px; background: var(--borde);
+}

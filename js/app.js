@@ -51,7 +51,15 @@ function pantallaLogin(mensaje) {
         avatar(u.nombre) + '<span><strong>' + esc(u.nombre) + '</strong><small>' + esc(ROLES[u.rol].nombre) + '</small></span></button>'
       ).join('') + '</div></div>';
   } else {
-    extra = '<button class="btn primario grande" id="btn-google">Entrar con Google</button>' +
+    extra =
+      '<form class="login-mail" id="form-mail">' +
+      '<label class="campo"><span>Tu mail de ' + esc(window.CFG.ORG_CORTO) + '</span>' +
+      '<input type="email" id="mail-login" placeholder="nombre@' + esc(dom) + '" autocomplete="email" required></label>' +
+      '<button class="btn primario grande" type="submit">Mandame el link para entrar</button>' +
+      '</form>' +
+      '<p class="tenue">Te llega un mail con un botón. No hay contraseña que recordar.</p>' +
+      '<div class="separador"><span>o</span></div>' +
+      '<button class="btn grande" id="btn-google">Entrar con Google</button>' +
       '<p class="tenue">Solo cuentas <strong>@' + esc(dom) + '</strong></p>';
   }
   app.innerHTML =
@@ -68,6 +76,35 @@ function pantallaLogin(mensaje) {
   const g = app.querySelector('#btn-google');
   if (g) g.addEventListener('click', async () => {
     try { await backend.entrar(); } catch (e) { pantallaLogin(e.message); }
+  });
+
+  const fm = app.querySelector('#form-mail');
+  if (fm) fm.addEventListener('submit', async ev => {
+    ev.preventDefault();
+    const input = app.querySelector('#mail-login');
+    const boton = fm.querySelector('button');
+    boton.disabled = true;
+    boton.textContent = 'Mandando…';
+    try {
+      const mail = await backend.entrarPorMail(input.value);
+      app.querySelector('.login-caja').innerHTML =
+        '<div class="marca"><span class="marca-logo">EQ</span><div><strong>Cheques</strong>' +
+        '<small>' + esc(window.CFG.ORG) + '</small></div></div>' +
+        '<h1>Revisá tu mail</h1>' +
+        '<p>Te mandamos un link a <strong>' + esc(mail) + '</strong>. Abrilo desde este mismo navegador y entrás.</p>' +
+        '<p class="tenue">Si no aparece en un minuto, mirá en spam. El link vence en una hora.</p>' +
+        '<button class="btn fantasma" onclick="location.reload()">Usar otro mail</button>';
+    } catch (e) {
+      boton.disabled = false;
+      boton.textContent = 'Mandame el link para entrar';
+      let err = app.querySelector('.modal-error');
+      if (!err) {
+        err = document.createElement('p');
+        err.className = 'modal-error';
+        fm.appendChild(err);
+      }
+      err.textContent = e.message || String(e);
+    }
   });
   app.querySelectorAll('[data-usuario]').forEach(b => {
     b.addEventListener('click', async () => {
