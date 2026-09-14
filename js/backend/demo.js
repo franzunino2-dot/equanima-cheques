@@ -3,17 +3,17 @@
 
 import { uuid, hoyISO, sumarDias, isoDe } from '../dominio/formato.js';
 
-const CLAVE = 'eq_cheques_demo_v3';
+const CLAVE = 'eq_cheques_demo_v4';
 const CLAVE_USUARIO = 'eq_cheques_demo_usuario';
 
 const USUARIOS = [
-  { id: 'u-fran',   nombre: 'Fran (demo)', email: 'fran@ejemplo.test',  rol: 'admin' },
-  { id: 'u-delfi',  nombre: 'Delfi (demo)',     email: 'delfi@ejemplo.test',    rol: 'backoffice' },
-  { id: 'u-chelo',  nombre: 'Chelo (demo)',      email: 'chelo@ejemplo.test',     rol: 'backoffice' },
-  { id: 'u-regi',   nombre: 'Regi (demo)',   email: 'regi@ejemplo.test', rol: 'compliance' },
-  { id: 'u-emi',    nombre: 'Emi (demo)',    email: 'emi@ejemplo.test',    rol: 'productor' },
-  { id: 'u-uru',    nombre: 'Uru (demo)',  email: 'uru@ejemplo.test', rol: 'productor' },
-  { id: 'u-agos',   nombre: 'Agos (demo)',   email: 'agos@ejemplo.test',   rol: 'lectura' }
+  { id: 'u-fran',   nombre: 'Fran Demo', email: 'fran@ejemplo.test',  rol: 'admin' },
+  { id: 'u-delfi',  nombre: 'Delfi Demo',     email: 'delfi@ejemplo.test',    rol: 'backoffice' },
+  { id: 'u-chelo',  nombre: 'Chelo Demo',      email: 'chelo@ejemplo.test',     rol: 'backoffice' },
+  { id: 'u-regi',   nombre: 'Regi Demo',   email: 'regi@ejemplo.test', rol: 'compliance' },
+  { id: 'u-emi',    nombre: 'Emi Demo',    email: 'emi@ejemplo.test',    rol: 'productor' },
+  { id: 'u-uru',    nombre: 'Uru Demo',  email: 'uru@ejemplo.test', rol: 'productor' },
+  { id: 'u-agos',   nombre: 'Agos Demo',   email: 'agos@ejemplo.test',   rol: 'lectura' }
 ];
 
 const COMITENTES = [
